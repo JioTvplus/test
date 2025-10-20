@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom YouTube Playlist</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.video-player__playing {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  margin-bottom: 20px;
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-player__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.video-thumb {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.video-thumb:hover {
+  transform: scale(1.05);
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-thumb.active {
+  outline: 3px solid #f7941e;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="video-player">
+    <div class="video-player__playing">
+      <div class="embed-container">
+        <div id="player"></div>
+      </div>
+    </div>
+    <div class="video-player__thumbs">
+      <div data-video="ltMMYyVqFbI" class="video-thumb active"><img src="https://img.youtube.com/vi/92UXfEIc4lI/hqdefault.jpg"></div>
+      <div data-video="ltMMYyVqFbI" class="video-thumb"><img src="https://img.youtube.com/vi/uWzF6p3gmJM/hqdefault.jpg"></div>
+      <div data-video="nc1VCP2bUuo" class="video-thumb"><img src="https://img.youtube.com/vi/nc1VCP2bUuo/hqdefault.jpg"></div>
+      <div data-video="5GP5tBMQyt4" class="video-thumb"><img src="https://img.youtube.com/vi/5GP5tBMQyt4/hqdefault.jpg"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '315',
+    width: '560',
+    videoId: '92UXfEIc4lI',
+    events: {
+      'onReady': function() {
+        $(".video-thumb").click(function() {
+          var $this = $(this);
+          if (!$this.hasClass("active")) {
+            player.loadVideoById($this.attr("data-video"));
+            $this.addClass("active").siblings().removeClass("active");
+          }
+        });
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>
