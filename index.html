@@ -1,1 +1,133 @@
-Nothing Here 😂
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nandanjj</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.video-player__playing {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  margin-bottom: 20px;
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-player__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.video-thumb {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.video-thumb:hover {
+  transform: scale(1.05);
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-thumb.active {
+  outline: 3px solid #f7941e;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="video-player">
+    <div class="video-player__playing">
+      <div class="embed-container">
+        <div id="player"></div>
+      </div>
+    </div>
+    <div class="video-player__thumbs">
+      
+      <div data-video="bKDdT_nyP54" class="video-thumb"><img src="https://img.youtube.com/vi/bKDdT_nyP54/hqdefault.jpg"></div>
+      <div data-video="xTlNMmZKwpA" class="video-thumb"><img src="https://i.ibb.co/GvY07xJW/PVGXX.jpg"></div>
+      <div data-video="WcIcVapfqXw" class="video-thumb"><img src="https://img.youtube.com/vi/WcIcVapfqXw/hqdefault.jpg"></div>
+      <div data-video="VCLxJd1d84s" class="video-thumb"><img src="https://img.youtube.com/vi/VCLxJd1d84s/hqdefault.jpg"></div>
+      <div data-video="wnJ6LuUFpMo" class="video-thumb"><img src="https://img.youtube.com/vi/wnJ6LuUFpMo/hqdefault.jpg"></div>
+      <div data-video="59Q_lhgGANc" class="video-thumb"><img src="https://img.youtube.com/vi/59Q_lhgGANc/hqdefault.jpg"></div>
+      <div data-video="VFwmKL5OL-Q" class="video-thumb"><img src="https://img.youtube.com/vi/VFwmKL5OL-Q/hqdefault.jpg"></div>
+      <div data-video="kDfR4yI9TSY" class="video-thumb"><img src="https://img.youtube.com/vi/kDfR4yI9TSY/hqdefault.jpg"></div>
+      <div data-video="ZaI2IlHwmgQ" class="video-thumb"><img src="https://img.youtube.com/vi/ZaI2IlHwmgQ/hqdefault.jpg"></div>
+      <div data-video="zrFI2gJSuwA" class="video-thumb"><img src="https://img.youtube.com/vi/zrFI2gJSuwA/hqdefault.jpg"></div>
+      <div data-video="YykjpeuMNEk" class="video-thumb"><img src="https://img.youtube.com/vi/YykjpeuMNEk/hqdefault.jpg"></div>
+      <div data-video="HWjCStB6k4o" class="video-thumb"><img src="https://img.youtube.com/vi/HWjCStB6k4o/hqdefault.jpg"></div>
+      
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '315',
+    width: '560',
+    videoId: 'RbtPXFlZlHg',
+    events: {
+      'onReady': function() {
+        $(".video-thumb").click(function() {
+          var $this = $(this);
+          if (!$this.hasClass("active")) {
+            player.loadVideoById($this.attr("data-video"));
+            $this.addClass("active").siblings().removeClass("active");
+          }
+        });
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>
